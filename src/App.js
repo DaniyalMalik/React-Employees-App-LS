@@ -1,23 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import Login from './components/Login';
+import Register from './components/Register';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div class='mt-5'>
+      <div className='container'>
+        <ul class='nav nav-tabs' role='tablist'>
+          <li class='nav-item'>
+            <a class='nav-link active' data-toggle='tab' href='#login'>
+              Login
+            </a>
+          </li>
+          <li class='nav-item'>
+            <a class='nav-link' data-toggle='tab' href='#register'>
+              Register
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class='tab-content'>
+        <div id='login' class='container tab-pane active'>
+          <Login />
+        </div>
+        <div id='register' class='container tab-pane fade'>
+          <Register />
+        </div>
+      </div>
     </div>
   );
 }
