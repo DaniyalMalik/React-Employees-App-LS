@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import swal from 'sweetalert';
-import Info from './Info';
 
 export default class Register extends Component {
   state = {
@@ -14,12 +13,14 @@ export default class Register extends Component {
     this.setState({ email, password });
   };
 
-  onregister = () => {
+  onregister = (e) => {
+    e.preventDefault();
+    console.log(e);
     const { email, password } = this.state;
     localStorage.setItem('email', email);
     localStorage.setItem('password', password);
     swal('Greetings!', 'Registered!', 'success');
-    <Info />;
+    window.location = '/dashboard';
   };
 
   render() {

@@ -1,32 +1,15 @@
-import Login from './components/Login';
-import Register from './components/Register';
+import Routes from './Routes';
+import Info from './components/Info';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 function App() {
   return (
-    <div class='mt-5'>
-      <div className='container'>
-        <ul class='nav nav-tabs' role='tablist'>
-          <li class='nav-item'>
-            <a class='nav-link active' data-toggle='tab' href='#login'>
-              Login
-            </a>
-          </li>
-          <li class='nav-item'>
-            <a class='nav-link' data-toggle='tab' href='#register'>
-              Register
-            </a>
-          </li>
-        </ul>
-      </div>
-      <div class='tab-content'>
-        <div id='login' class='container tab-pane active'>
-          <Login />
-        </div>
-        <div id='register' class='container tab-pane fade'>
-          <Register />
-        </div>
-      </div>
-    </div>
+    <Router>
+      <Switch>
+        <Route exact path='/' component={Routes} />;
+        <Route exact path='/dashboard' component={Info} />;
+      </Switch>
+    </Router>
   );
 }
 

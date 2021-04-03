@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import swal from 'sweetalert';
-import Info from './Info';
-
 export default class Login extends Component {
   state = {
     email: '',
@@ -22,7 +20,7 @@ export default class Login extends Component {
 
     if (email === emailLS && password === passwordLS) {
       swal('Greetings!', 'Logged In!', 'success');
-      return <Info />;
+      window.location = '/dashboard';
     } else {
       swal('Greetings!', 'Incorrect Credentials!', 'error');
     }
