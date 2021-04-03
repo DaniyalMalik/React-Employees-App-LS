@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import 'react-phone-number-input/style.css';
+import PhoneInput from 'react-phone-number-input';
 
 export default class Info extends Component {
   state = {
@@ -130,13 +132,12 @@ export default class Info extends Component {
     } = this.state;
     let data = localStorage.getItem('data');
     data = JSON.parse(data);
-    console.log(data);
     let count = 1;
     return (
       <div className='container mt-5'>
         <div className='row'>
           <div className='col-md-9'>
-            <div className='table table-stripped'>
+            <table className='table table-stripped'>
               <thead>
                 <tr>
                   <th>Serial No. </th>
@@ -182,7 +183,7 @@ export default class Info extends Component {
                     })
                   : null}
               </tbody>
-            </div>
+            </table>
           </div>
           <div className='col-md-3'>
             <input
@@ -200,16 +201,16 @@ export default class Info extends Component {
             />
           </div>
         </div>
-        <div class='modal' id='addData'>
-          <div class='modal-dialog'>
-            <div class='modal-content'>
-              <div class='modal-header'>
-                <h4 class='modal-title'>Add Employee</h4>
-                <button type='button' class='close' data-dismiss='modal'>
+        <div className='modal' id='addData'>
+          <div className='modal-dialog'>
+            <div className='modal-content'>
+              <div className='modal-header'>
+                <h4 className='modal-title'>Add Employee</h4>
+                <button type='button' className='close' data-dismiss='modal'>
                   &times;
                 </button>
               </div>
-              <div class='modal-body'>
+              <div className='modal-body'>
                 <form action='' onSubmit={this.onadd}>
                   <div className='input-group mb-3'>
                     <div className='input-group-prepend'>
@@ -245,8 +246,7 @@ export default class Info extends Component {
                     <div className='input-group-prepend'>
                       <span className='input-group-text'>Phone Number</span>
                     </div>
-                    <input
-                      type='text'
+                    <PhoneInput
                       id='number-1'
                       placeholder='Enter Phone Number'
                       value={number_1}
@@ -289,23 +289,23 @@ export default class Info extends Component {
                     value='Add'
                     name='add'
                     type='submit'
-                    class='btn btn-success btn-block'
+                    className='btn btn-success btn-block'
                   />
                 </form>
               </div>
             </div>
           </div>
         </div>
-        <div class='modal' id='updateData'>
-          <div class='modal-dialog'>
-            <div class='modal-content'>
-              <div class='modal-header'>
-                <h4 class='modal-title'>Update Employee</h4>
-                <button type='button' class='close' data-dismiss='modal'>
+        <div className='modal' id='updateData'>
+          <div className='modal-dialog'>
+            <div className='modal-content'>
+              <div className='modal-header'>
+                <h4 className='modal-title'>Update Employee</h4>
+                <button type='button' className='close' data-dismiss='modal'>
                   &times;
                 </button>
               </div>
-              <div class='modal-body'>
+              <div className='modal-body'>
                 <form action='' onSubmit={this.onupdate}>
                   <div className='input-group mb-3'>
                     <div className='input-group-prepend'>
@@ -341,8 +341,7 @@ export default class Info extends Component {
                     <div className='input-group-prepend'>
                       <span className='input-group-text'>Phone Number</span>
                     </div>
-                    <input
-                      type='text'
+                    <PhoneInput
                       id='number-2'
                       placeholder='Enter Phone Number'
                       value={number_2}
@@ -385,7 +384,7 @@ export default class Info extends Component {
                     value='Update'
                     name='update'
                     type='submit'
-                    class='btn btn-success btn-block'
+                    className='btn btn-success btn-block'
                   />
                 </form>
               </div>

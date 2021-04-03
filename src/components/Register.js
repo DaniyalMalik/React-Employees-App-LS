@@ -5,22 +5,27 @@ export default class Register extends Component {
   state = {
     email: '',
     password: '',
+    repeat_password: '',
   };
 
   onchange = () => {
     let email = document.getElementById('emailR').value;
     let password = document.getElementById('passwordR').value;
-    this.setState({ email, password });
+    let repeat_password = document.getElementById('repeat-password').value;
+    this.setState({ email, password, repeat_password });
   };
 
   onregister = (e) => {
     e.preventDefault();
-    console.log(e);
-    const { email, password } = this.state;
-    localStorage.setItem('email', email);
-    localStorage.setItem('password', password);
-    swal('Greetings!', 'Registered!', 'success');
-    window.location = '/dashboard';
+    const { email, password, repeat_password } = this.state;
+    if (password === repeat_password) {
+      localStorage.setItem('email', email);
+      localStorage.setItem('password', password);
+      swal('Greetings!', 'Registered!', 'success');
+      window.location = '/dashboard';
+    } else {
+      swal('Greetings!', 'Passwords Not Match!', 'error');
+    }
   };
 
   render() {
@@ -33,7 +38,7 @@ export default class Register extends Component {
             <h3>Register Form</h3>
           </div>
           <div className='card-body'>
-            <form action='' onSubmit={this.onregister}>
+            <form action='' method='post' onSubmit={this.onregister}>
               <div className='input-group mb-3'>
                 <div className='input-group-prepend'>
                   <span className='input-group-text'>Email</span>

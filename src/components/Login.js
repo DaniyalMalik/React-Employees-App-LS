@@ -36,7 +36,7 @@ export default class Login extends Component {
             <h3>Login Form</h3>
           </div>
           <div className='card-body'>
-            <form action='' onSubmit={this.onlogin}>
+            <form action='' method='post' onSubmit={this.onlogin}>
               <div className='input-group mb-3'>
                 <div className='input-group-prepend'>
                   <span className='input-group-text'>Email</span>

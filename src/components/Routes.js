@@ -1,5 +1,5 @@
-import Login from './components/Login';
-import Register from './components/Register';
+import Login from './Login';
+import Register from './Register';
 
 function App() {
   return (
