@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import 'react-phone-number-input/style.css';
 import PhoneInput from 'react-phone-number-input';
+import swal from 'sweetalert';
 
 export default class Info extends Component {
   state = {
@@ -66,7 +67,7 @@ export default class Info extends Component {
     }
   };
 
-  onadd = () => {
+  onadd = (e) => {
     const { name_1, email_1, number_1, date_1, salary_1 } = this.state;
     let data = [
       {
@@ -77,13 +78,25 @@ export default class Info extends Component {
         salary: salary_1,
       },
     ];
-    if (localStorage.getItem('data') !== null) {
-      let storage = localStorage.getItem('data');
-      storage = JSON.parse(storage);
+    let canAdd = false;
+    let storage = localStorage.getItem('data');
+    storage = JSON.parse(storage);
+    for (let i = 0; i < storage.length; i++) {
+      if (storage[i].email === email_1) {
+        canAdd = false;
+        break;
+      } else {
+        canAdd = true;
+      }
+    }
+    if (localStorage.getItem('data') !== null && canAdd) {
       data = storage.concat(data);
       localStorage.setItem('data', JSON.stringify(data));
-    } else {
+    } else if (localStorage.getItem('data') === null && canAdd) {
       localStorage.setItem('data', JSON.stringify(data));
+    } else {
+      e.preventDefault();
+      swal('Greetings!', 'User Already Exists!', 'warning');
     }
   };
 
