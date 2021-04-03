@@ -2,12 +2,16 @@ import React, { Component } from 'react';
 
 export default class Info extends Component {
   state = {
-    count: 0,
-    name: '',
-    email: '',
-    number: '',
-    date: '',
-    salary: '',
+    name_1: '',
+    email_1: '',
+    number_1: '',
+    date_1: '',
+    salary_1: '',
+    name_2: '',
+    email_2: '',
+    number_2: '',
+    date_2: '',
+    salary_2: '',
   };
 
   ondelete = (value) => {
@@ -32,44 +36,53 @@ export default class Info extends Component {
     let number = value.number;
     let salary = value.salary;
     let date = value.date;
-    this.setState({ name, email, number, date, salary });
+    this.setState({
+      name_2: name,
+      email_2: email,
+      number_2: number,
+      date_2: date,
+      salary_2: salary,
+    });
   };
 
   onupdate = () => {
-    const { email, name, number, salary, date } = this.state;
-    let obj = {
-      email,
-      name,
-      number,
-      salary,
-      date,
-    };
+    const { name_2, email_2, number_2, date_2, salary_2 } = this.state;
     let storage = localStorage.getItem('data');
     storage = JSON.parse(storage);
+    let data = {
+      name: name_2,
+      email: email_2,
+      number: number_2,
+      date: date_2,
+      salary: salary_2,
+    };
     for (let i = 0; i < storage.length; i++) {
-      if (storage[i].email === email) {
-        storage.splice(i, 1, obj);
+      if (storage[i].email === email_2) {
+        storage.splice(i, 1, data);
         localStorage.setItem('data', JSON.stringify(storage));
-        this.setState();
       }
     }
   };
 
   onadd = () => {
-    const { count, name, email, number, date, salary } = this.state;
-    // ++count;
+    const { name_1, email_1, number_1, date_1, salary_1 } = this.state;
+    let data = [
+      {
+        name: name_1,
+        email: email_1,
+        number: number_1,
+        date: date_1,
+        salary: salary_1,
+      },
+    ];
     if (localStorage.getItem('data') !== null) {
       let storage = localStorage.getItem('data');
       storage = JSON.parse(storage);
-      let data = [{ name, email, number, date, salary }];
-      data = data.concat(storage);
+      data = storage.concat(data);
       localStorage.setItem('data', JSON.stringify(data));
     } else {
-      let data = [{ name, email, number, date, salary }];
       localStorage.setItem('data', JSON.stringify(data));
     }
-    // this.setState({ count });
-    // console.log(count);
   };
 
   onchange_1 = () => {
@@ -78,7 +91,13 @@ export default class Info extends Component {
     let number = document.getElementById('number-1').value;
     let salary = document.getElementById('salary-1').value;
     let date = document.getElementById('date-1').value;
-    this.setState({ name, email, number, date, salary });
+    this.setState({
+      name_1: name,
+      email_1: email,
+      number_1: number,
+      date_1: date,
+      salary_1: salary,
+    });
   };
 
   onchange_2 = () => {
@@ -87,13 +106,32 @@ export default class Info extends Component {
     let number = document.getElementById('number-2').value;
     let salary = document.getElementById('salary-2').value;
     let date = document.getElementById('date-2').value;
-    this.setState({ name, email, number, date, salary });
+    this.setState({
+      name_2: name,
+      email_2: email,
+      number_2: number,
+      date_2: date,
+      salary_2: salary,
+    });
   };
 
   render() {
-    const { name, email, number, date, salary } = this.state;
+    const {
+      name_1,
+      email_1,
+      number_1,
+      date_1,
+      salary_1,
+      name_2,
+      email_2,
+      number_2,
+      date_2,
+      salary_2,
+    } = this.state;
     let data = localStorage.getItem('data');
     data = JSON.parse(data);
+    console.log(data);
+    let count = 1;
     return (
       <div className='container mt-5'>
         <div className='row'>
@@ -101,7 +139,7 @@ export default class Info extends Component {
             <div className='table table-stripped'>
               <thead>
                 <tr>
-                  {/* <th>Serial No. </th> */}
+                  <th>Serial No. </th>
                   <th>Name</th>
                   <th>Email</th>
                   <th>Number</th>
@@ -111,36 +149,38 @@ export default class Info extends Component {
                 </tr>
               </thead>
               <tbody>
-                {data.map((value) => {
-                  return (
-                    <tr>
-                      {/* <td>{value.indexOf(value)}</td> */}
-                      <td>{value.name}</td>
-                      <td>{value.email}</td>
-                      <td>{value.number}</td>
-                      <td>{value.date}</td>
-                      <td>{value.salary}</td>
-                      <td>
-                        <div className='btn-group'>
-                          <input
-                            type='submit'
-                            className='btn btn-danger'
-                            onClick={() => this.ondelete(value)}
-                            value='Delete'
-                          />
-                          <input
-                            onClick={() => this.onupdateclick(value)}
-                            type='submit'
-                            data-toggle='modal'
-                            data-target='#updateData'
-                            className='btn btn-secondary'
-                            value='Edit'
-                          />
-                        </div>
-                      </td>
-                    </tr>
-                  );
-                })}
+                {data.length !== 0
+                  ? data.map((value) => {
+                      return (
+                        <tr>
+                          <td>{count++}</td>
+                          <td>{value.name}</td>
+                          <td>{value.email}</td>
+                          <td>{value.number}</td>
+                          <td>{value.date}</td>
+                          <td>{value.salary}</td>
+                          <td>
+                            <div className='btn-group'>
+                              <input
+                                type='submit'
+                                className='btn btn-danger'
+                                onClick={() => this.ondelete(value)}
+                                value='Delete'
+                              />
+                              <input
+                                onClick={() => this.onupdateclick(value)}
+                                type='submit'
+                                data-toggle='modal'
+                                data-target='#updateData'
+                                className='btn btn-secondary'
+                                value='Edit'
+                              />
+                            </div>
+                          </td>
+                        </tr>
+                      );
+                    })
+                  : null}
               </tbody>
             </div>
           </div>
@@ -179,7 +219,7 @@ export default class Info extends Component {
                       type='text'
                       id='name-1'
                       placeholder='Enter Name'
-                      value={name}
+                      value={name_1}
                       name='name'
                       onChange={this.onchange_1}
                       className='form-control'
@@ -195,7 +235,7 @@ export default class Info extends Component {
                       id='email-1'
                       onChange={this.onchange_1}
                       placeholder='Enter Email'
-                      value={email}
+                      value={email_1}
                       name='email'
                       className='form-control'
                       required
@@ -209,7 +249,7 @@ export default class Info extends Component {
                       type='text'
                       id='number-1'
                       placeholder='Enter Phone Number'
-                      value={number}
+                      value={number_1}
                       name='number'
                       onChange={this.onchange_1}
                       className='form-control'
@@ -221,7 +261,7 @@ export default class Info extends Component {
                       <span className='input-group-text'>Salary</span>
                     </div>
                     <input
-                      value={salary}
+                      value={salary_1}
                       type='number'
                       id='salary-1'
                       placeholder='Enter Salary'
@@ -238,7 +278,7 @@ export default class Info extends Component {
                     <input
                       type='date'
                       id='date-1'
-                      value={date}
+                      value={date_1}
                       onChange={this.onchange_1}
                       name='date'
                       className='form-control'
@@ -275,7 +315,7 @@ export default class Info extends Component {
                       type='text'
                       id='name-2'
                       placeholder='Enter Name'
-                      value={name}
+                      value={name_2}
                       name='name'
                       onChange={this.onchange_2}
                       className='form-control'
@@ -291,7 +331,7 @@ export default class Info extends Component {
                       id='email-2'
                       onChange={this.onchange_2}
                       placeholder='Enter Email'
-                      value={email}
+                      value={email_2}
                       name='email'
                       className='form-control'
                       required
@@ -305,7 +345,7 @@ export default class Info extends Component {
                       type='text'
                       id='number-2'
                       placeholder='Enter Phone Number'
-                      value={number}
+                      value={number_2}
                       name='number'
                       onChange={this.onchange_2}
                       className='form-control'
@@ -317,7 +357,7 @@ export default class Info extends Component {
                       <span className='input-group-text'>Salary</span>
                     </div>
                     <input
-                      value={salary}
+                      value={salary_2}
                       type='number'
                       id='salary-2'
                       placeholder='Enter Salary'
@@ -334,7 +374,7 @@ export default class Info extends Component {
                     <input
                       type='date'
                       id='date-2'
-                      value={date}
+                      value={date_2}
                       onChange={this.onchange_2}
                       name='date'
                       className='form-control'
