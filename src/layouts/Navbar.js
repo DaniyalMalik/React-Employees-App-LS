@@ -1,44 +1,29 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 export default class Navbar extends Component {
-  state = {
-    isAuthenticated: false,
-  };
-
   render() {
-    const { isAuthenticated } = this.state;
-    const { isAuth } = this.props;
-
+    const { email } = this.props;
     return (
       <div>
-        <nav class='navbar navbar-expand-sm bg-dark navbar-dark'>
-          {isAuthenticated ? (
-            <ul class='navbar-nav'>
-              <li class='nav-item active'>
-                <a class='nav-link' href='#'>
-                  Dashboard
-                </a>
-              </li>
-              <li class='nav-item'>
-                <a class='nav-link' href='#'>
-                  Logout
-                </a>
-              </li>
-            </ul>
-          ) : (
-            <ul class='navbar-nav'>
-              <li class='nav-item'>
-                <a class='nav-link' href='#'>
-                  Login
-                </a>
-              </li>
-              <li class='nav-item'>
-                <a class='nav-link' href='#'>
-                  Register
-                </a>
-              </li>
-            </ul>
-          )}
+        <nav className='navbar navbar-expand-sm bg-dark navbar-dark'>
+          <ul className='navbar-nav'>
+            <li className='nav-item active'>
+              <Link className='nav-link' to={`/dashboard/${email}`}>
+                Dashboard
+              </Link>
+            </li>
+            <li className='nav-item'>
+              <Link className='nav-link' to={`/dashboard/${email}`}>
+                {email}
+              </Link>
+            </li>
+            <li className='nav-item'>
+              <Link className='nav-link' to='/'>
+                Logout
+              </Link>
+            </li>
+          </ul>
         </nav>
       </div>
     );

@@ -35,7 +35,7 @@ export default class Register extends Component {
         let user = [{ email, password }];
         users = users.concat(user);
         localStorage.setItem('users', JSON.stringify(users));
-        window.location = '/dashboard';
+        window.location = `/dashboard/${email}`;
       } else {
         swal('Greetings!', 'Passwords Not Match!', 'error');
       }
@@ -44,7 +44,7 @@ export default class Register extends Component {
         swal('Greetings!', 'Registered!', 'success');
         let user = [{ email, password }];
         localStorage.setItem('users', JSON.stringify(user));
-        window.location = '/dashboard';
+        window.location = `/dashboard/${email}`;
       } else {
         swal('Greetings!', 'Passwords Not Match!', 'error');
       }

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import 'react-phone-number-input/style.css';
 import PhoneInput from 'react-phone-number-input';
 import swal from 'sweetalert';
-
+import Navbar from '../layouts/Navbar';
 export default class Info extends Component {
   state = {
     name_1: '',
@@ -143,263 +143,266 @@ export default class Info extends Component {
       date_2,
       salary_2,
     } = this.state;
+
+    const { email } = this.props.match.params;
     let data = localStorage.getItem('data');
     data = JSON.parse(data);
     let count = 1;
     return (
-      <div className='container mt-5'>
-        <div className='row'>
-          <div className='col-md-9'>
-            <table className='table table-stripped'>
-              <thead>
-                <tr>
-                  <th>Serial No. </th>
-                  <th>Name</th>
-                  <th>Email</th>
-                  <th>Number</th>
-                  <th>Date Of Joining</th>
-                  <th>Salary</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {data.length !== 0
-                  ? data.map((value) => {
-                      return (
-                        <tr>
-                          <td>{count++}</td>
-                          <td>{value.name}</td>
-                          <td>{value.email}</td>
-                          <td>{value.number}</td>
-                          <td>{value.date}</td>
-                          <td>{value.salary}</td>
-                          <td>
-                            <div className='btn-group'>
-                              <input
-                                type='submit'
-                                className='btn btn-danger'
-                                onClick={() => this.ondelete(value)}
-                                value='Delete'
-                              />
-                              <input
-                                onClick={() => this.onupdateclick(value)}
-                                type='submit'
-                                data-toggle='modal'
-                                data-target='#updateData'
-                                className='btn btn-secondary'
-                                value='Edit'
-                              />
-                            </div>
-                          </td>
-                        </tr>
-                      );
-                    })
-                  : null}
-              </tbody>
-            </table>
+      <div>
+        <Navbar email={email} />
+        <div className='container mt-5'>
+          <div className='row'>
+            <div className='col-md-9'>
+              <table className='table table-stripped'>
+                <thead>
+                  <tr>
+                    <th>Serial No. </th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Number</th>
+                    <th>Date Of Joining</th>
+                    <th>Salary</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {data.length !== 0
+                    ? data.map((value) => {
+                        return (
+                          <tr>
+                            <td>{count++}</td>
+                            <td>{value.name}</td>
+                            <td>{value.email}</td>
+                            <td>{value.number}</td>
+                            <td>{value.date}</td>
+                            <td>{value.salary}</td>
+                            <td>
+                              <div className='btn-group'>
+                                <input
+                                  type='submit'
+                                  className='btn btn-danger'
+                                  onClick={() => this.ondelete(value)}
+                                  value='Delete'
+                                />
+                                <input
+                                  onClick={() => this.onupdateclick(value)}
+                                  type='submit'
+                                  data-toggle='modal'
+                                  data-target='#updateData'
+                                  className='btn btn-secondary'
+                                  value='Edit'
+                                />
+                              </div>
+                            </td>
+                          </tr>
+                        );
+                      })
+                    : null}
+                </tbody>
+              </table>
+            </div>
+            <div className='col-md-3'>
+              <input
+                type='submit'
+                className='btn btn-success btn-block'
+                value='Add'
+                data-toggle='modal'
+                data-target='#addData'
+              />
+            </div>
           </div>
-          <div className='col-md-3'>
-            <input
-              type='submit'
-              className='btn btn-success btn-block'
-              value='Add'
-              data-toggle='modal'
-              data-target='#addData'
-            />
-            <input
-              type='submit'
-              className='btn btn-primary btn-block'
-              onClick={this.onlogout}
-              value='Logout'
-            />
-          </div>
-        </div>
-        <div className='modal' id='addData'>
-          <div className='modal-dialog'>
-            <div className='modal-content'>
-              <div className='modal-header'>
-                <h4 className='modal-title'>Add Employee</h4>
-                <button type='button' className='close' data-dismiss='modal'>
-                  &times;
-                </button>
-              </div>
-              <div className='modal-body'>
-                <form action='' onSubmit={this.onadd}>
-                  <div className='input-group mb-3'>
-                    <div className='input-group-prepend'>
-                      <span className='input-group-text'>Name</span>
+          <div className='modal' id='addData'>
+            <div className='modal-dialog'>
+              <div className='modal-content'>
+                <div className='modal-header'>
+                  <h4 className='modal-title'>Add Employee</h4>
+                  <button type='button' className='close' data-dismiss='modal'>
+                    &times;
+                  </button>
+                </div>
+                <div className='modal-body'>
+                  <form action='' onSubmit={this.onadd}>
+                    <div className='input-group mb-3'>
+                      <div className='input-group-prepend'>
+                        <span className='input-group-text'>Name</span>
+                      </div>
+                      <input
+                        type='text'
+                        id='name-1'
+                        placeholder='Enter Name'
+                        value={name_1}
+                        name='name'
+                        onChange={this.onchange_1}
+                        className='form-control'
+                        required
+                      />
+                    </div>
+                    <div className='input-group mb-3'>
+                      <div className='input-group-prepend'>
+                        <span className='input-group-text'>Email</span>
+                      </div>
+                      <input
+                        type='email'
+                        id='email-1'
+                        onChange={this.onchange_1}
+                        placeholder='Enter Email'
+                        value={email_1}
+                        name='email'
+                        className='form-control'
+                        required
+                      />
+                    </div>
+                    <div className='input-group mb-3'>
+                      <div className='input-group-prepend'>
+                        <span className='input-group-text'>Phone Number</span>
+                      </div>
+                      <PhoneInput
+                        id='number-1'
+                        placeholder='Enter Phone Number'
+                        value={number_1}
+                        name='number'
+                        onChange={this.onchange_1}
+                        className='form-control'
+                        required
+                      />
+                    </div>
+                    <div className='input-group mb-3'>
+                      <div className='input-group-prepend'>
+                        <span className='input-group-text'>Salary</span>
+                      </div>
+                      <input
+                        value={salary_1}
+                        type='number'
+                        id='salary-1'
+                        placeholder='Enter Salary'
+                        name='salary'
+                        onChange={this.onchange_1}
+                        className='form-control'
+                        required
+                      />
+                    </div>
+                    <div className='input-group mb-3'>
+                      <div className='input-group-prepend'>
+                        <span className='input-group-text'>
+                          Date of Joining
+                        </span>
+                      </div>
+                      <input
+                        type='date'
+                        id='date-1'
+                        value={date_1}
+                        onChange={this.onchange_1}
+                        name='date'
+                        className='form-control'
+                        required
+                      />
                     </div>
                     <input
-                      type='text'
-                      id='name-1'
-                      placeholder='Enter Name'
-                      value={name_1}
-                      name='name'
-                      onChange={this.onchange_1}
-                      className='form-control'
-                      required
+                      value='Add'
+                      name='add'
+                      type='submit'
+                      className='btn btn-success btn-block'
                     />
-                  </div>
-                  <div className='input-group mb-3'>
-                    <div className='input-group-prepend'>
-                      <span className='input-group-text'>Email</span>
-                    </div>
-                    <input
-                      type='email'
-                      id='email-1'
-                      onChange={this.onchange_1}
-                      placeholder='Enter Email'
-                      value={email_1}
-                      name='email'
-                      className='form-control'
-                      required
-                    />
-                  </div>
-                  <div className='input-group mb-3'>
-                    <div className='input-group-prepend'>
-                      <span className='input-group-text'>Phone Number</span>
-                    </div>
-                    <PhoneInput
-                      id='number-1'
-                      placeholder='Enter Phone Number'
-                      value={number_1}
-                      name='number'
-                      onChange={this.onchange_1}
-                      className='form-control'
-                      required
-                    />
-                  </div>
-                  <div className='input-group mb-3'>
-                    <div className='input-group-prepend'>
-                      <span className='input-group-text'>Salary</span>
-                    </div>
-                    <input
-                      value={salary_1}
-                      type='number'
-                      id='salary-1'
-                      placeholder='Enter Salary'
-                      name='salary'
-                      onChange={this.onchange_1}
-                      className='form-control'
-                      required
-                    />
-                  </div>
-                  <div className='input-group mb-3'>
-                    <div className='input-group-prepend'>
-                      <span className='input-group-text'>Date of Joining</span>
-                    </div>
-                    <input
-                      type='date'
-                      id='date-1'
-                      value={date_1}
-                      onChange={this.onchange_1}
-                      name='date'
-                      className='form-control'
-                      required
-                    />
-                  </div>
-                  <input
-                    value='Add'
-                    name='add'
-                    type='submit'
-                    className='btn btn-success btn-block'
-                  />
-                </form>
+                  </form>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div className='modal' id='updateData'>
-          <div className='modal-dialog'>
-            <div className='modal-content'>
-              <div className='modal-header'>
-                <h4 className='modal-title'>Update Employee</h4>
-                <button type='button' className='close' data-dismiss='modal'>
-                  &times;
-                </button>
-              </div>
-              <div className='modal-body'>
-                <form action='' onSubmit={this.onupdate}>
-                  <div className='input-group mb-3'>
-                    <div className='input-group-prepend'>
-                      <span className='input-group-text'>Name</span>
+          <div className='modal' id='updateData'>
+            <div className='modal-dialog'>
+              <div className='modal-content'>
+                <div className='modal-header'>
+                  <h4 className='modal-title'>Update Employee</h4>
+                  <button type='button' className='close' data-dismiss='modal'>
+                    &times;
+                  </button>
+                </div>
+                <div className='modal-body'>
+                  <form action='' onSubmit={this.onupdate}>
+                    <div className='input-group mb-3'>
+                      <div className='input-group-prepend'>
+                        <span className='input-group-text'>Name</span>
+                      </div>
+                      <input
+                        type='text'
+                        id='name-2'
+                        placeholder='Enter Name'
+                        value={name_2}
+                        name='name'
+                        onChange={this.onchange_2}
+                        className='form-control'
+                        required
+                      />
+                    </div>
+                    <div className='input-group mb-3'>
+                      <div className='input-group-prepend'>
+                        <span className='input-group-text'>Email</span>
+                      </div>
+                      <input
+                        type='email'
+                        id='email-2'
+                        onChange={this.onchange_2}
+                        placeholder='Enter Email'
+                        value={email_2}
+                        name='email'
+                        className='form-control'
+                        required
+                      />
+                    </div>
+                    <div className='input-group mb-3'>
+                      <div className='input-group-prepend'>
+                        <span className='input-group-text'>Phone Number</span>
+                      </div>
+                      <PhoneInput
+                        id='number-2'
+                        placeholder='Enter Phone Number'
+                        value={number_2}
+                        name='number'
+                        onChange={this.onchange_2}
+                        className='form-control'
+                        required
+                      />
+                    </div>
+                    <div className='input-group mb-3'>
+                      <div className='input-group-prepend'>
+                        <span className='input-group-text'>Salary</span>
+                      </div>
+                      <input
+                        value={salary_2}
+                        type='number'
+                        id='salary-2'
+                        placeholder='Enter Salary'
+                        name='salary'
+                        onChange={this.onchange_2}
+                        className='form-control'
+                        required
+                      />
+                    </div>
+                    <div className='input-group mb-3'>
+                      <div className='input-group-prepend'>
+                        <span className='input-group-text'>
+                          Date of Joining
+                        </span>
+                      </div>
+                      <input
+                        type='date'
+                        id='date-2'
+                        value={date_2}
+                        onChange={this.onchange_2}
+                        name='date'
+                        className='form-control'
+                        required
+                      />
                     </div>
                     <input
-                      type='text'
-                      id='name-2'
-                      placeholder='Enter Name'
-                      value={name_2}
-                      name='name'
-                      onChange={this.onchange_2}
-                      className='form-control'
-                      required
+                      value='Update'
+                      name='update'
+                      type='submit'
+                      className='btn btn-success btn-block'
                     />
-                  </div>
-                  <div className='input-group mb-3'>
-                    <div className='input-group-prepend'>
-                      <span className='input-group-text'>Email</span>
-                    </div>
-                    <input
-                      type='email'
-                      id='email-2'
-                      onChange={this.onchange_2}
-                      placeholder='Enter Email'
-                      value={email_2}
-                      name='email'
-                      className='form-control'
-                      required
-                    />
-                  </div>
-                  <div className='input-group mb-3'>
-                    <div className='input-group-prepend'>
-                      <span className='input-group-text'>Phone Number</span>
-                    </div>
-                    <PhoneInput
-                      id='number-2'
-                      placeholder='Enter Phone Number'
-                      value={number_2}
-                      name='number'
-                      onChange={this.onchange_2}
-                      className='form-control'
-                      required
-                    />
-                  </div>
-                  <div className='input-group mb-3'>
-                    <div className='input-group-prepend'>
-                      <span className='input-group-text'>Salary</span>
-                    </div>
-                    <input
-                      value={salary_2}
-                      type='number'
-                      id='salary-2'
-                      placeholder='Enter Salary'
-                      name='salary'
-                      onChange={this.onchange_2}
-                      className='form-control'
-                      required
-                    />
-                  </div>
-                  <div className='input-group mb-3'>
-                    <div className='input-group-prepend'>
-                      <span className='input-group-text'>Date of Joining</span>
-                    </div>
-                    <input
-                      type='date'
-                      id='date-2'
-                      value={date_2}
-                      onChange={this.onchange_2}
-                      name='date'
-                      className='form-control'
-                      required
-                    />
-                  </div>
-                  <input
-                    value='Update'
-                    name='update'
-                    type='submit'
-                    className='btn btn-success btn-block'
-                  />
-                </form>
+                  </form>
+                </div>
               </div>
             </div>
           </div>

@@ -22,7 +22,7 @@ export default class Login extends Component {
       if (email === users[i].email && password === users[i].password) {
         valid = true;
         swal('Greetings!', 'Logged In!', 'success');
-        window.location = '/dashboard';
+        window.location = `/dashboard/${email}`;
         break;
       }
     }
