@@ -14,15 +14,21 @@ export default class Login extends Component {
 
   onlogin = (e) => {
     e.preventDefault();
-    let emailLS = localStorage.getItem('email');
-    let passwordLS = localStorage.getItem('password');
     const { email, password } = this.state;
-
-    if (email === emailLS && password === passwordLS) {
-      swal('Greetings!', 'Logged In!', 'success');
-      window.location = '/dashboard';
-    } else {
+    let valid = false,
+      users = localStorage.getItem('users');
+    users = JSON.parse(users);
+    for (let i = 0; i < users.length; i++) {
+      if (email === users[i].email && password === users[i].password) {
+        valid = true;
+        swal('Greetings!', 'Logged In!', 'success');
+        window.location = '/dashboard';
+        break;
+      }
+    }
+    if (valid === false) {
       swal('Greetings!', 'Incorrect Credentials!', 'error');
+      valid = true;
     }
   };
 

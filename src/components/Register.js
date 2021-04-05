@@ -18,18 +18,43 @@ export default class Register extends Component {
   onregister = (e) => {
     e.preventDefault();
     const { email, password, repeat_password } = this.state;
-    if (password === repeat_password) {
-      localStorage.setItem('email', email);
-      localStorage.setItem('password', password);
-      swal('Greetings!', 'Registered!', 'success');
-      window.location = '/dashboard';
+    let canReg = false,
+      users = localStorage.getItem('users');
+    users = JSON.parse(users);
+    for (let i = 0; i < users.length; i++) {
+      if (users[i].email === email) {
+        canReg = false;
+        break;
+      } else {
+        canReg = true;
+      }
+    }
+    if (users !== null && canReg === true) {
+      if (password === repeat_password) {
+        swal('Greetings!', 'Registered!', 'success');
+        let user = [{ email, password }];
+        users = users.concat(user);
+        localStorage.setItem('users', JSON.stringify(users));
+        window.location = '/dashboard';
+      } else {
+        swal('Greetings!', 'Passwords Not Match!', 'error');
+      }
+    } else if (users === null && canReg === true) {
+      if (password === repeat_password) {
+        swal('Greetings!', 'Registered!', 'success');
+        let user = [{ email, password }];
+        localStorage.setItem('users', JSON.stringify(user));
+        window.location = '/dashboard';
+      } else {
+        swal('Greetings!', 'Passwords Not Match!', 'error');
+      }
     } else {
-      swal('Greetings!', 'Passwords Not Match!', 'error');
+      swal('Greetings!', 'User Already Exists!', 'error');
     }
   };
 
   render() {
-    const { email, password } = this.state;
+    const { email, password, repeat_password } = this.state;
 
     return (
       <div className='container mt-5'>
@@ -75,8 +100,10 @@ export default class Register extends Component {
                 </div>
                 <input
                   type='password'
+                  value={repeat_password}
                   id='repeat-password'
                   name='repeat-password'
+                  onChange={this.onchange}
                   placeholder='Repeat Password'
                   className='form-control'
                   required
