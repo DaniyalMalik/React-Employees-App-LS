@@ -3,6 +3,8 @@ import 'react-phone-number-input/style.css';
 import PhoneInput from 'react-phone-number-input';
 import swal from 'sweetalert';
 import Navbar from '../layouts/Navbar';
+import axios from 'axios';
+
 export default class Info extends Component {
   state = {
     name_1: '',
